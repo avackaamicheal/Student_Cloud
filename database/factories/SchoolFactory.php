@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<\App\Models\School>
@@ -16,10 +17,14 @@ class SchoolFactory extends Factory
      */
     public function definition(): array
     {
+        $name = 'Demo School Academy';
+
+        $slug = Str::slug($name) . '-' . Str::random(6);
+
         return [
-            'name' => 'Demo School Academy',
-            'slug' => 'demo-school-academy',
-            'email' => 'admin@demoschool.test',
+            'name' => $name,
+            'slug' => $slug,
+            'email' => $slug .'@demoschool.test',
             'phone_number' => '08000000000',
             'address' => '1 Demo Street, Lagos',
             'principal_name' => 'Mrs. Demo Principal',

@@ -264,3 +264,1136 @@ textarea.form-control {
         z-index: 2;
     }
 }
+
+/* ==========================================================================
+   SchoolCloud SMS - Modern Authentication Portal Styles
+   ========================================================================== */
+
+:root {
+    --sc-navy: #0f172a;
+    --sc-navy-dark: #0a0f1d;
+    --sc-indigo: #3730a3;
+    --sc-indigo-hover: #312e81;
+    --sc-indigo-light: #eef2ff;
+    --sc-accent: #4f46e5;
+    --sc-accent-bright: #6366f1;
+    --sc-slate: #475569;
+    --sc-muted: #64748b;
+    --sc-subtle: #94a3b8;
+    --sc-border: #e2e8f0;
+    --sc-border-focus: #cbd5e1;
+    --sc-bg: #f8fafc;
+    --sc-white: #ffffff;
+    --sc-emerald: #059669;
+    --sc-emerald-light: #ecfdf5;
+    --sc-danger: #e11d48;
+    --sc-danger-light: #fff1f2;
+}
+
+body.schoolcloud-auth-body {
+    background-color: var(--sc-bg) !important;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    color: var(--sc-slate);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+.sc-login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+    background: 
+        radial-gradient(circle at 10% 15%, rgba(79, 70, 229, 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 90% 85%, rgba(55, 48, 163, 0.04) 0%, transparent 45%),
+        #f8fafc;
+}
+
+.sc-login-container {
+    display: flex;
+    max-width: 1080px;
+    width: 100%;
+    min-height: 680px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 40px -15px rgba(15, 23, 42, 0.08),
+        0 0 0 1px rgba(226, 232, 240, 0.9);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Showcase Pane (Left Side) */
+.sc-showcase-pane {
+    flex: 0 0 440px;
+    width: 440px;
+    background: linear-gradient(165deg, #0f172a 0%, #1e1b4b 55%, #312e81 100%);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.sc-showcase-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(79, 70, 229, 0.22) 0%, transparent 55%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sc-showcase-header,
+.sc-showcase-body,
+.sc-showcase-footer {
+    position: relative;
+    z-index: 1;
+}
+
+.sc-brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-decoration: none;
+    color: #ffffff;
+    transition: opacity 0.2s ease;
+}
+
+.sc-brand-lockup:hover {
+    opacity: 0.92;
+    color: #ffffff;
+}
+
+.sc-brand-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+}
+
+.sc-brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.sc-brand-name {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    line-height: 1.15;
+}
+
+.sc-brand-accent {
+    color: #818cf8;
+}
+
+.sc-brand-tagline {
+    font-size: 0.725rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-top: 2px;
+}
+
+.sc-showcase-body {
+    margin: 2.5rem 0;
+}
+
+.sc-badge-lead {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(129, 140, 248, 0.16);
+    border: 1px solid rgba(129, 140, 248, 0.35);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #c7d2fe;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+}
+
+.sc-showcase-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+    color: #ffffff;
+    margin-bottom: 0.85rem;
+}
+
+.sc-showcase-desc {
+    font-size: 0.925rem;
+    line-height: 1.55;
+    color: #cbd5e1;
+    margin-bottom: 2rem;
+}
+
+.sc-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.sc-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.sc-feature-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #818cf8;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.sc-feature-content h4 {
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 0.2rem 0;
+    letter-spacing: -0.01em;
+}
+
+.sc-feature-content p {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.sc-showcase-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sc-security-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.775rem;
+    color: #94a3b8;
+}
+
+.sc-security-badge i {
+    color: #10b981;
+    font-size: 0.9rem;
+}
+
+/* Interactive Form Pane (Right Side) */
+.sc-form-pane {
+    flex: 1;
+    padding: 3rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #ffffff;
+}
+
+.sc-form-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.sc-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--sc-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.sc-back-link:hover {
+    color: var(--sc-navy);
+    transform: translateX(-2px);
+}
+
+.sc-back-link i {
+    font-size: 0.8rem;
+}
+
+.sc-mobile-brand {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--sc-navy);
+}
+
+.sc-form-content {
+    max-width: 460px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.sc-form-intro {
+    margin-bottom: 1.75rem;
+}
+
+.sc-pill-tag {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    background: var(--sc-indigo-light);
+    border-radius: 9999px;
+    font-size: 0.725rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sc-accent);
+    margin-bottom: 0.75rem;
+}
+
+.sc-form-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--sc-navy);
+    margin: 0 0 0.35rem 0;
+}
+
+.sc-form-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--sc-muted);
+    margin: 0;
+}
+
+/* Alerts */
+.sc-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.sc-alert-success {
+    background: var(--sc-emerald-light);
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+}
+
+.sc-alert-danger {
+    background: var(--sc-danger-light);
+    border: 1px solid #fecdd3;
+    color: #9f1239;
+}
+
+/* Field Groups */
+.sc-field-group {
+    margin-bottom: 1.35rem;
+}
+
+.sc-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.45rem;
+}
+
+.sc-field-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 0.45rem 0;
+    display: block;
+}
+
+.sc-label-row .sc-field-label {
+    margin-bottom: 0;
+}
+
+.sc-link-forgot {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--sc-accent);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.sc-link-forgot:hover {
+    color: var(--sc-indigo-hover);
+    text-decoration: underline;
+}
+
+.sc-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sc-input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sc-subtle);
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.sc-input-wrapper:focus-within .sc-input-icon {
+    color: var(--sc-accent);
+}
+
+.sc-form-control {
+    width: 100%;
+    height: 48px;
+    padding: 0.75rem 1rem 0.75rem 2.85rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500;
+    color: var(--sc-navy);
+    background: #ffffff;
+    border: 1.5px solid var(--sc-border);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.sc-form-control:focus {
+    outline: none;
+    border-color: var(--sc-accent);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.sc-form-control::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.sc-form-control.is-invalid,
+.sc-input-wrapper.has-error .sc-form-control {
+    border-color: var(--sc-danger);
+}
+
+.sc-form-control.is-invalid:focus,
+.sc-input-wrapper.has-error .sc-form-control:focus {
+    box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12);
+}
+
+.sc-pwd-toggle {
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--sc-subtle);
+    padding: 0.35rem 0.5rem;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: color 0.15s ease;
+}
+
+.sc-pwd-toggle:hover {
+    color: var(--sc-navy);
+}
+
+.sc-error-message {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--sc-danger);
+    margin-top: 0.4rem;
+}
+
+/* Checkbox */
+.sc-options-row {
+    margin-top: -0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.sc-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--sc-slate);
+}
+
+.sc-checkbox {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--sc-accent);
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Submit Button */
+.sc-btn-submit {
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(135deg, var(--sc-indigo) 0%, var(--sc-accent) 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    box-shadow: 0 4px 12px rgba(55, 48, 163, 0.28);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sc-btn-submit:hover {
+    background: linear-gradient(135deg, #312e81 0%, #4338ca 100%);
+    box-shadow: 0 6px 18px rgba(55, 48, 163, 0.38);
+    transform: translateY(-1px);
+}
+
+.sc-btn-submit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(55, 48, 163, 0.2);
+}
+
+.sc-btn-submit i {
+    font-size: 0.875rem;
+    transition: transform 0.2s ease;
+}
+
+.sc-btn-submit:hover i {
+    transform: translateX(3px);
+}
+
+/* Roles Indicator */
+.sc-roles-indicator {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed var(--sc-border);
+}
+
+.sc-roles-title {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sc-subtle);
+    margin-bottom: 0.65rem;
+}
+
+.sc-roles-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.sc-role-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #334155;
+    background: #f1f5f9;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.sc-role-pill i {
+    font-size: 0.7rem;
+    color: var(--sc-accent);
+}
+
+/* Secondary Onboarding Card */
+.sc-register-card {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: #f8fafc;
+    border: 1px solid var(--sc-border);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    margin-top: 1.5rem;
+}
+
+.sc-register-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #eef2ff;
+    color: var(--sc-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.sc-register-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.sc-register-title {
+    font-size: 0.825rem;
+    font-weight: 700;
+    color: var(--sc-navy);
+}
+
+.sc-register-desc {
+    font-size: 0.75rem;
+    color: var(--sc-muted);
+}
+
+.sc-register-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--sc-indigo);
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+}
+
+.sc-register-btn:hover {
+    background: var(--sc-indigo);
+    color: #ffffff;
+    border-color: var(--sc-indigo);
+}
+
+.sc-register-btn i {
+    font-size: 0.7rem;
+}
+
+/* Form Footer */
+.sc-form-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 1.5rem;
+    font-size: 0.775rem;
+    color: var(--sc-subtle);
+    border-top: 1px solid #f1f5f9;
+    margin-top: 1.75rem;
+}
+
+.sc-footer-support {
+    color: #94a3b8;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 991px) {
+    .sc-login-container {
+        flex-direction: column;
+        max-width: 540px;
+        min-height: auto;
+    }
+
+    .sc-showcase-pane {
+        width: 100%;
+        flex: none;
+        padding: 2.25rem 2rem;
+    }
+
+    .sc-showcase-body {
+        margin: 1.75rem 0 1.25rem 0;
+    }
+
+    .sc-features-list {
+        display: none;
+    }
+
+    .sc-showcase-title {
+        font-size: 1.35rem;
+    }
+
+    .sc-showcase-desc {
+        margin-bottom: 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .sc-showcase-footer {
+        display: none;
+    }
+
+    .sc-form-pane {
+        padding: 2.25rem 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .sc-login-wrapper {
+        padding: 0.75rem;
+    }
+
+    .sc-login-container {
+        border-radius: 16px;
+    }
+
+    .sc-showcase-pane {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .sc-form-pane {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .sc-form-title {
+        font-size: 1.5rem;
+    }
+
+    .sc-register-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .sc-register-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   SchoolCloud SMS - Multi-Step Wizard & Password Recovery Additions
+   ========================================================================== */
+
+/* Wizard Layout */
+.sc-wizard-container {
+    max-width: 1100px;
+}
+
+.sc-wizard-sidebar {
+    flex: 0 0 420px;
+    width: 420px;
+}
+
+.sc-wizard-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2.25rem;
+}
+
+.sc-step-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0.55;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sc-step-item.active {
+    opacity: 1;
+}
+
+.sc-step-item.done {
+    opacity: 0.85;
+}
+
+.sc-step-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sc-step-item.active .sc-step-badge {
+    background: #818cf8;
+    border-color: #818cf8;
+    color: #0f172a;
+    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.25);
+    font-weight: 800;
+}
+
+.sc-step-item.done .sc-step-badge {
+    background: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+}
+
+.sc-step-item.done .sc-step-badge::before {
+    content: '\2713';
+}
+
+.sc-step-item.done .sc-step-badge {
+    font-size: 0.95rem;
+}
+
+.sc-step-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.sc-step-index {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+
+.sc-step-name {
+    font-size: 0.925rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+}
+
+.sc-wizard-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sc-highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: #cbd5e1;
+}
+
+.sc-highlight-item i {
+    color: #818cf8;
+    font-size: 0.85rem;
+    width: 16px;
+    text-align: center;
+}
+
+/* Header Alt Actions */
+.sc-header-alt-action {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.875rem;
+}
+
+.sc-header-alt-text {
+    color: var(--sc-muted);
+}
+
+.sc-header-alt-link {
+    color: var(--sc-indigo);
+    font-weight: 700;
+    text-decoration: underline;
+    transition: color 0.15s ease;
+}
+
+.sc-header-alt-link:hover {
+    color: var(--sc-accent);
+}
+
+/* Field Helpers */
+.sc-textarea {
+    height: auto !important;
+    min-height: 76px;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    resize: vertical;
+}
+
+.sc-textarea-icon {
+    top: 1.25rem !important;
+    transform: none !important;
+}
+
+.sc-readonly {
+    background-color: #f8fafc !important;
+    color: #64748b !important;
+    cursor: not-allowed;
+    border-color: #e2e8f0 !important;
+}
+
+.sc-field-hint {
+    display: block;
+    font-size: 0.775rem;
+    color: #64748b;
+    margin-top: 0.4rem;
+}
+
+.sc-field-hint i {
+    color: var(--sc-accent);
+}
+
+/* Wizard Form Actions */
+.sc-wizard-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.sc-btn-next {
+    width: auto !important;
+    padding: 0 1.75rem;
+}
+
+.sc-btn-confirm {
+    width: auto !important;
+    padding: 0 2rem;
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.28) !important;
+}
+
+.sc-btn-confirm:hover {
+    background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.38) !important;
+}
+
+.sc-btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    color: var(--sc-slate);
+    font-weight: 600;
+    font-size: 0.925rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sc-btn-back:hover {
+    background: #f8fafc;
+    color: var(--sc-navy);
+    border-color: #94a3b8;
+}
+
+/* Completion Card */
+.sc-completion-card {
+    text-align: center;
+    padding: 3rem 1.5rem;
+}
+
+.sc-completion-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #ecfdf5;
+    border: 2px solid #a7f3d0;
+    color: #059669;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.18);
+}
+
+.sc-completion-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--sc-navy);
+    margin: 0.75rem 0 0.5rem;
+}
+
+.sc-completion-desc {
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    color: var(--sc-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.sc-completion-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.sc-btn-complete {
+    width: auto !important;
+    padding: 0 2.25rem;
+}
+
+/* Summary Alert */
+.sc-alert-summary {
+    align-items: flex-start !important;
+}
+
+.sc-alert-lead {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.sc-alert-text ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   Centered Auth Card (Password Reset, Email Request, Confirm Password)
+   ========================================================================== */
+.sc-auth-card {
+    max-width: 480px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 40px -15px rgba(15, 23, 42, 0.08),
+        0 0 0 1px rgba(226, 232, 240, 0.9);
+    overflow: hidden;
+    padding: 2.5rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.sc-auth-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.sc-card-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--sc-navy);
+}
+
+.sc-card-brand img {
+    border-radius: 8px;
+}
+
+.sc-auth-card-body {
+    flex: 1;
+}
+
+.sc-auth-card-alt {
+    text-align: center;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #f1f5f9;
+    font-size: 0.875rem;
+    color: var(--sc-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+}
+
+.sc-auth-card-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 1.5rem;
+    font-size: 0.775rem;
+    color: var(--sc-subtle);
+    border-top: 1px solid #f1f5f9;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+/* Responsive Overrides for Wizard */
+@media (max-width: 991px) {
+    .sc-wizard-container {
+        flex-direction: column;
+        max-width: 580px;
+    }
+
+    .sc-wizard-sidebar {
+        width: 100%;
+        flex: none;
+        padding: 2rem;
+    }
+
+    .sc-wizard-steps {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .sc-step-meta {
+        display: none;
+    }
+
+    .sc-wizard-highlights {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .sc-wizard-actions {
+        flex-direction: column-reverse;
+        gap: 0.75rem;
+    }
+
+    .sc-btn-back, .sc-btn-next, .sc-btn-confirm {
+        width: 100% !important;
+        justify-content: center;
+    }
+
+    .sc-auth-card {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+    }
+}
+

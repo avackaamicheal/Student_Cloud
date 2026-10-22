@@ -26,6 +26,7 @@ class CheckSchoolApproval
             $school = $user->school;
 
             $allowedRoutes = [
+                'landing',
                 'subscription.index',
                 'subscription.initiate',
                 'subscription.callback',

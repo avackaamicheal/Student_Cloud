@@ -1,45 +1,77 @@
 @extends('layouts.auth')
 
-@section('title', 'Axia SMS | Confirm Password')
+@section('title', 'Confirm Password | SchoolCloud SMS')
+
+@section('body_class', 'schoolcloud-auth-body')
 
 @section('content')
-    <div class="login-box">
-        <div class="card card-outline card-primary">
-            <div class="card-header text-center">
-                <a href="{{ url('/') }}" class="h1"><b>Axia</b>SMS</a>
-            </div>
-            <div class="card-body">
-                <p class="login-box-msg">{{ __('Confirm Password') }}</p>
-
-                <p>{{ __('Please confirm your password before continuing.') }}</p>
-
-                <form method="POST" action="{{ route('password.confirm') }}">
-                    @csrf
-
-                    <div class="input-group mb-3">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __('Password') }}">
-                        <div class="input-group-append">
-                            <div class="input-group-text"><span class="fas fa-lock"></span></div>
-                            <button type="button" class="input-group-text password-toggle" tabindex="-1" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
-                        </div>
-                        @error('password')
-                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">{{ __('Confirm Password') }}</button>
-                        </div>
-                    </div>
-
-                    @if (Route::has('password.request'))
-                        <p class="mb-0 mt-3">
-                            <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
-                        </p>
-                    @endif
-                </form>
+<div class="sc-login-wrapper">
+    <div class="sc-auth-card">
+        <div class="sc-auth-card-header">
+            <a href="{{ url('/') }}" class="sc-back-link">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Home</span>
+            </a>
+            <div class="sc-card-brand">
+                <img src="{{ asset('dist/img/axia-logo.svg') }}" alt="SchoolCloud Logo" width="32" height="32">
+                <span>SchoolCloud<span class="sc-brand-accent">SMS</span></span>
             </div>
         </div>
+
+        <div class="sc-auth-card-body">
+            <span class="sc-pill-tag">Security Verification</span>
+            <h2 class="sc-form-title">Confirm Password</h2>
+            <p class="sc-form-subtitle">Please confirm your institutional password before continuing to this secure area.</p>
+
+            @if($errors->any())
+                <div class="sc-alert sc-alert-danger" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>{{ $errors->first() }}</span>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('password.confirm') }}" class="sc-login-form" novalidate>
+                @csrf
+
+                <div class="sc-field-group">
+                    <div class="sc-label-row">
+                        <label for="password" class="sc-field-label">Password</label>
+                        @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="sc-link-forgot">Forgot password?</a>
+                        @endif
+                    </div>
+                    <div class="sc-input-wrapper password-wrapper @error('password') has-error @enderror">
+                        <i class="fas fa-lock sc-input-icon"></i>
+                        <input 
+                            id="password" 
+                            type="password" 
+                            name="password" 
+                            class="sc-form-control @error('password') is-invalid @enderror" 
+                            required 
+                            autocomplete="current-password" 
+                            placeholder="••••••••" 
+                            autofocus
+                        >
+                        <button type="button" class="password-toggle sc-pwd-toggle" tabindex="-1" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    @error('password')
+                        <span class="sc-error-message"><i class="fas fa-info-circle"></i> {{ $message }}</span>
+                    @enderror
+                </div>
+
+                <button type="submit" class="sc-btn-submit">
+                    <span>Confirm Password</span>
+                    <i class="fas fa-shield-alt"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="sc-auth-card-footer">
+            <span class="sc-footer-copy">&copy; {{ date('Y') }} SchoolCloud SMS. All rights reserved.</span>
+            <span class="sc-footer-support"><i class="fas fa-shield-alt"></i> 256-bit TLS Encrypted Session</span>
+        </div>
     </div>
+</div>
 @endsection

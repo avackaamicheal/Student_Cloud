@@ -67,4 +67,4 @@ ENV LOG_CHANNEL stderr
 
 
 # Start Apache with migration...The artisan migrate "--force" is crucial for production
-CMD ["/bin/sh", "-c", "php artisan migrate --force && php artisan config:clear && php artisan route:clear && php artisan view:clear && apache2-foreground"]
+CMD php artisan migrate --force && php artisan config:clear && php artisan route:clear && php artisan view:clear && apache2-foreground

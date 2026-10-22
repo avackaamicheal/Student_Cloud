@@ -163,4 +163,34 @@ class User extends Authenticatable
             ? $pref->email_enabled
             : $pref->in_app_enabled;
     }
+
+    public function dashboardUrl(): string
+    {
+        if ($this->hasRole('SuperAdmin')) {
+            return route('superadmin.dashboard');
+        }
+
+        $slug = trim($this->school?->slug ?? '');
+        if (!$slug) {
+            return route('login');
+        }
+
+        if ($this->hasRole('SchoolAdmin')) {
+            return route('schooladmin.dashboard', ['school' => $slug]);
+        }
+        if ($this->hasRole('Teacher')) {
+            return route('teacher.dashboard', ['school' => $slug]);
+        }
+        if ($this->hasRole('Bursar')) {
+            return route('bursar.dashboard', ['school' => $slug]);
+        }
+        if ($this->hasRole('Parent')) {
+            return route('parent.dashboard', ['school' => $slug]);
+        }
+        if ($this->hasRole('Student')) {
+            return route('student.dashboard', ['school' => $slug]);
+        }
+
+        return route('login');
+    }
 }

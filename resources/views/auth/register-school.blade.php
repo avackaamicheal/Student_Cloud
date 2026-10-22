@@ -1,503 +1,489 @@
 @extends('layouts.auth')
 
-@section('title', 'Register Your School | Axia SMS')
+@section('title', 'Register Your School | SchoolCloud SMS')
 
-@section('body_class', '')
-
-@push('styles')
-    <style>
-        .sidebar-steps {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        .sidebar-step {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .step-number {
-            width: 33px;
-            height: 33px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,.7);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-            transition: all .3s;
-            flex-shrink: 0;
-        }
-        .sidebar-step.active .step-number {
-            background: hsl(206, 94%, 87%);
-            border-color: hsl(206, 94%, 87%);
-            color: hsl(213, 96%, 18%);
-        }
-        .sidebar-step.done .step-number {
-            background: #fff;
-            border-color: #fff;
-            color: hsl(243, 100%, 62%);
-        }
-        .sidebar-step.done .step-number::after {
-            content: '\2713';
-        }
-        .step-text {
-            display: flex;
-            flex-direction: column;
-        }
-        .step-label {
-            font-size: 12px;
-            color: rgba(255,255,255,.5);
-            text-transform: uppercase;
-            letter-spacing: .5px;
-        }
-        .step-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-        }
-        .step-header h2 {
-            font-size: 28px;
-            font-weight: 700;
-            color: hsl(213, 96%, 18%);
-            margin-bottom: .35rem;
-        }
-        .step-header p {
-            color: hsl(231, 11%, 63%);
-            margin-bottom: 2rem;
-            font-size: 16px;
-        }
-        .step-body {
-            flex: 1;
-        }
-        .step-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-            padding-top: 2rem;
-        }
-        .btn-next, .btn-confirm {
-            background: hsl(213, 96%, 18%);
-            color: #fff;
-            border: none;
-            padding: .75rem 1.75rem;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 16px;
-            cursor: pointer;
-            transition: opacity .3s;
-            font-family: inherit;
-        }
-        .btn-next:hover, .btn-confirm:hover {
-            opacity: .8;
-        }
-        .btn-confirm {
-            background: hsl(243, 100%, 62%);
-        }
-        .btn-previous {
-            background: transparent;
-            color: hsl(231, 11%, 63%);
-            border: none;
-            font-weight: 500;
-            font-size: 16px;
-            cursor: pointer;
-            padding: .75rem 0;
-            transition: color .3s;
-            font-family: inherit;
-        }
-        .btn-previous:hover {
-            color: hsl(213, 96%, 18%);
-        }
-        .registration-form fieldset {
-            display: none;
-        }
-        .registration-form fieldset:first-child {
-            display: block;
-        }
-        .error-summary {
-            background: hsl(354, 84%, 57%);
-            color: #fff;
-            padding: .75rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-size: 14px;
-        }
-        .error-summary ul {
-            margin: 0;
-            padding-left: 1.25rem;
-        }
-        .thank-you {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-        .thank-you-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: hsl(206, 94%, 87%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 2rem;
-            font-size: 40px;
-            color: hsl(213, 96%, 18%);
-        }
-        .thank-you h2 {
-            font-size: 28px;
-            font-weight: 700;
-            color: hsl(213, 96%, 18%);
-            margin-bottom: 1rem;
-        }
-        .thank-you p {
-            color: hsl(231, 11%, 63%);
-            max-width: 450px;
-            margin: 0 auto 2rem;
-            line-height: 1.6;
-        }
-        @media (max-width: 768px) {
-            .sidebar-steps {
-                flex-direction: row;
-                justify-content: center;
-                gap: 1rem;
-            }
-            .step-text {
-                display: none;
-            }
-        }
-    </style>
-@endpush
+@section('body_class', 'schoolcloud-auth-body')
 
 @section('content')
-    <div class="multi-step-wrapper">
-        <div class="multi-step-container">
+<div class="sc-login-wrapper sc-wizard-page">
+    <div class="sc-login-container sc-wizard-container">
 
-            {{-- Sidebar --}}
-            <div class="step-sidebar">
-                <svg class="sidebar-bg" xmlns="http://www.w3.org/2000/svg" width="274" height="568" fill="none" viewBox="0 0 274 568" preserveAspectRatio="xMidYMid slice">
-                    <mask id="a" width="274" height="568" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha">
-                        <rect width="274" height="568" fill="#fff" rx="10"/>
-                    </mask>
-                    <g mask="url(#a)">
-                        <path fill="#6259FF" fill-rule="evenodd" d="M-34.692 543.101C3.247 632.538 168.767 685.017 211.96 612.52c43.194-72.497-66.099-85.653-104.735-160.569-38.635-74.916-68.657-121.674-124.482-104.607-55.824 17.068-55.375 106.32-17.436 195.757Z" clip-rule="evenodd"/>
-                        <path fill="#F9818E" fill-rule="evenodd" d="M233.095 601.153c60.679-28.278 92.839-143.526 41.875-171.528-50.965-28.003-57.397 47.579-108.059 75.987-50.662 28.408-82.14 50.207-69.044 88.241 13.096 38.034 74.549 35.578 135.228 7.3Z" clip-rule="evenodd"/>
-                        <path stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="5" d="m165.305 469.097 10.607-10.806M209.461 474.581l-12.506-10.503M187.56 488.991l-6.908 14.798"/>
-                        <path fill="#FFAF7E" d="M.305 546.891c37.003 0 67-29.997 67-67s-29.997-67-67-67-67 29.997-67 67 29.997 67 67 67Z"/>
-                    </g>
-                </svg>
+        <!-- Wizard Milestone Sidebar -->
+        <aside class="sc-showcase-pane sc-wizard-sidebar">
+            <div class="sc-showcase-pattern" aria-hidden="true"></div>
 
-                <div class="sidebar-steps" id="step-indicator">
-                    <div class="sidebar-step active" data-step="1">
-                        <div class="step-number">1</div>
-                        <div class="step-text">
-                            <span class="step-label">STEP 1</span>
-                            <span class="step-title">School</span>
+            <div class="sc-showcase-header">
+                <a href="{{ route('landing') }}" class="sc-brand-lockup" title="Return to SchoolCloud SMS Homepage">
+                    <img src="{{ asset('dist/img/axia-logo.svg') }}" alt="SchoolCloud SMS Logo" class="sc-brand-logo" width="40" height="40">
+                    <div class="sc-brand-text">
+                        <span class="sc-brand-name">SchoolCloud<span class="sc-brand-accent">SMS</span></span>
+                        <span class="sc-brand-tagline">Institutional Onboarding</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="sc-showcase-body">
+                <span class="sc-badge-lead">School Onboarding</span>
+                <h1 class="sc-showcase-title">Setup your school portal in 3 simple steps.</h1>
+                <p class="sc-showcase-desc">
+                    Join primary and secondary schools across Nigeria managing admissions, grading, fee collections, and parent communication on one unified platform.
+                </p>
+
+                <!-- Milestone Steps List -->
+                <div class="sc-wizard-steps" id="step-indicator">
+                    <div class="sc-step-item active" data-step="1">
+                        <div class="sc-step-badge">1</div>
+                        <div class="sc-step-meta">
+                            <span class="sc-step-index">STEP 1</span>
+                            <span class="sc-step-name">School Profile</span>
                         </div>
                     </div>
-                    <div class="sidebar-step" data-step="2">
-                        <div class="step-number">2</div>
-                        <div class="step-text">
-                            <span class="step-label">STEP 2</span>
-                            <span class="step-title">Account</span>
+
+                    <div class="sc-step-item" data-step="2">
+                        <div class="sc-step-badge">2</div>
+                        <div class="sc-step-meta">
+                            <span class="sc-step-index">STEP 2</span>
+                            <span class="sc-step-name">Administrator</span>
                         </div>
                     </div>
-                    <div class="sidebar-step" data-step="3">
-                        <div class="step-number">3</div>
-                        <div class="step-text">
-                            <span class="step-label">STEP 3</span>
-                            <span class="step-title">Submit</span>
+
+                    <div class="sc-step-item" data-step="3">
+                        <div class="sc-step-badge">3</div>
+                        <div class="sc-step-meta">
+                            <span class="sc-step-index">STEP 3</span>
+                            <span class="sc-step-name">Security & Submit</span>
                         </div>
+                    </div>
+                </div>
+
+                <div class="sc-wizard-highlights">
+                    <div class="sc-highlight-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Tenant data isolation per institution</span>
+                    </div>
+                    <div class="sc-highlight-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Automated academic session initialization</span>
+                    </div>
+                    <div class="sc-highlight-item">
+                        <i class="fas fa-coins"></i>
+                        <span>Naira (₦) Bursary & CA report card engine</span>
                     </div>
                 </div>
             </div>
 
-            {{-- Content --}}
-            <div class="step-content">
+            <div class="sc-showcase-footer">
+                <div class="sc-security-badge">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Official Nigerian School Software • 256-bit TLS</span>
+                </div>
+            </div>
+        </aside>
 
+        <!-- Wizard Interactive Content Pane -->
+        <main class="sc-form-pane sc-wizard-content-pane">
+            <div class="sc-form-header-bar">
+                <a href="{{ route('landing') }}" class="sc-back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </a>
+
+                <div class="sc-header-alt-action">
+                    <span class="sc-header-alt-text">Already registered?</span>
+                    <a href="{{ route('login') }}" class="sc-header-alt-link">Sign In</a>
+                </div>
+            </div>
+
+            <div class="sc-form-content sc-wizard-form-content">
                 @if(session('registered'))
-
-                    {{-- Thank you --}}
-                    <div class="thank-you">
-                        <div class="thank-you-icon">
+                    <!-- Thank You / Completion State -->
+                    <div class="sc-completion-card">
+                        <div class="sc-completion-icon">
                             <i class="fas fa-check"></i>
                         </div>
-                        <h2>Registration Complete!</h2>
-                        <p>Your school has been registered successfully. You can now set up your subscription and start managing your school.</p>
-                        <a href="{{ route('subscription.index') }}" class="btn-confirm">
-                            Continue to Subscription <i class="fas fa-arrow-right ml-1"></i>
-                        </a>
+                        <span class="sc-pill-tag">Setup Complete</span>
+                        <h2 class="sc-completion-title">Registration Successful!</h2>
+                        <p class="sc-completion-desc">
+                            Your school workspace has been provisioned. Set up your institutional subscription plan to activate your portal and start onboarding staff, students, and parents.
+                        </p>
+                        <div class="sc-completion-actions">
+                            <a href="{{ route('subscription.index') }}" class="sc-btn-submit sc-btn-complete">
+                                <span>Continue to Subscription</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
-
                 @else
-
-                    {{-- Error summary --}}
-                    @if($errors->any())
-                        <div class="error-summary">
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+                    <!-- Error Summary -->
+                    @if(session('error'))
+                        <div class="sc-alert sc-alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>{{ session('error') }}</span>
                         </div>
                     @endif
 
-                    {{-- Form --}}
-                    <form action="{{ route('school.register.store') }}" method="POST" class="registration-form">
+                    @if($errors->any())
+                        <div class="sc-alert sc-alert-danger sc-alert-summary" role="alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div class="sc-alert-text">
+                                <span class="sc-alert-lead">Please correct the following errors:</span>
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Registration Wizard Form -->
+                    <form action="{{ route('school.register.store') }}" method="POST" class="sc-wizard-form registration-form" novalidate>
                         @csrf
 
-                        {{-- Step 1: School Information --}}
-                        <fieldset>
-                            <div class="step-header">
-                                <h2>School Information</h2>
-                                <p>Tell us about your school</p>
+                        <!-- Step 1: School Information -->
+                        <fieldset class="sc-wizard-fieldset" data-step="1">
+                            <div class="sc-form-intro">
+                                <span class="sc-pill-tag">Step 1 of 3</span>
+                                <h2 class="sc-form-title">School Details</h2>
+                                <p class="sc-form-subtitle">Enter your official institutional contact and location information.</p>
                             </div>
-                            <div class="step-body">
-                                <div class="form-group">
-                                    <label>
-                                        School Name
-                                        @error('school_name') <span class="error-text">{{ $message }}</span> @enderror
-                                    </label>
-                                    <input type="text" name="school_name"
-                                        class="form-control @error('school_name') input-error @enderror"
-                                        value="{{ old('school_name') }}"
-                                        placeholder="e.g. Saint Murumba College"
-                                        required>
+
+                            <div class="sc-field-group">
+                                <label for="school_name" class="sc-field-label">School Name</label>
+                                <div class="sc-input-wrapper @error('school_name') has-error @enderror">
+                                    <i class="fas fa-school sc-input-icon"></i>
+                                    <input 
+                                        id="school_name" 
+                                        type="text" 
+                                        name="school_name" 
+                                        class="sc-form-control @error('school_name') is-invalid @enderror" 
+                                        value="{{ old('school_name') }}" 
+                                        placeholder="e.g. Saint Murumba College" 
+                                        required 
+                                        autofocus
+                                    >
                                 </div>
-                                <div class="form-group">
-                                    <label>
-                                        School Email
-                                        @error('school_email') <span class="error-text">{{ $message }}</span> @enderror
-                                    </label>
-                                    <input type="email" name="school_email"
-                                        class="form-control @error('school_email') input-error @enderror"
-                                        value="{{ old('school_email') }}"
-                                        placeholder="info@school.com"
-                                        required>
+                                @error('school_name')
+                                    <span class="sc-error-message"><i class="fas fa-info-circle"></i> {{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="sc-field-group">
+                                <label for="school_email" class="sc-field-label">Official School Email</label>
+                                <div class="sc-input-wrapper @error('school_email') has-error @enderror">
+                                    <i class="fas fa-envelope sc-input-icon"></i>
+                                    <input 
+                                        id="school_email" 
+                                        type="email" 
+                                        name="school_email" 
+                                        class="sc-form-control @error('school_email') is-invalid @enderror" 
+                                        value="{{ old('school_email') }}" 
+                                        placeholder="info@school.edu.ng" 
+                                        required
+                                    >
                                 </div>
-                                <div class="form-group">
-                                    <label>
-                                        Phone Number
-                                        @error('school_phone') <span class="error-text">{{ $message }}</span> @enderror
-                                    </label>
-                                    <input type="text" name="school_phone"
-                                        class="form-control @error('school_phone') input-error @enderror"
-                                        value="{{ old('school_phone') }}"
-                                        placeholder="e.g. 08012345678"
-                                        required>
+                                @error('school_email')
+                                    <span class="sc-error-message"><i class="fas fa-info-circle"></i> {{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="sc-field-group">
+                                <label for="school_phone" class="sc-field-label">Phone Number</label>
+                                <div class="sc-input-wrapper @error('school_phone') has-error @enderror">
+                                    <i class="fas fa-phone-alt sc-input-icon"></i>
+                                    <input 
+                                        id="school_phone" 
+                                        type="text" 
+                                        name="school_phone" 
+                                        class="sc-form-control @error('school_phone') is-invalid @enderror" 
+                                        value="{{ old('school_phone') }}" 
+                                        placeholder="e.g. 08012345678" 
+                                        required
+                                    >
                                 </div>
-                                <div class="form-group">
-                                    <label>
-                                        School Address
-                                        @error('school_address') <span class="error-text">{{ $message }}</span> @enderror
-                                    </label>
-                                    <textarea name="school_address"
-                                        class="form-control @error('school_address') input-error @enderror"
-                                        rows="2"
-                                        placeholder="Full school address"
+                                @error('school_phone')
+                                    <span class="sc-error-message"><i class="fas fa-info-circle"></i> {{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="sc-field-group">
+                                <label for="school_address" class="sc-field-label">School Address</label>
+                                <div class="sc-input-wrapper @error('school_address') has-error @enderror">
+                                    <i class="fas fa-map-marker-alt sc-input-icon sc-textarea-icon"></i>
+                                    <textarea 
+                                        id="school_address" 
+                                        name="school_address" 
+                                        class="sc-form-control sc-textarea @error('school_address') is-invalid @enderror" 
+                                        rows="2" 
+                                        placeholder="Full physical school address" 
                                         required>{{ old('school_address') }}</textarea>
                                 </div>
+                                @error('school_address')
+                                    <span class="sc-error-message"><i class="fas fa-info-circle"></i> {{ $message }}</span>
+                                @enderror
                             </div>
-                            <div class="step-footer">
+
+                            <div class="sc-wizard-actions">
                                 <div></div>
-                                <button type="button" class="btn-next btn-next-step">Next Step <i class="fas fa-arrow-right ml-1"></i></button>
+                                <button type="button" class="sc-btn-submit sc-btn-next btn-next-step">
+                                    <span>Next: Administrator Profile</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
                             </div>
                         </fieldset>
 
-                        {{-- Step 2: Admin Account --}}
-                        <fieldset>
-                            <div class="step-header">
-                                <h2>Admin Account</h2>
-                                <p>Set up your administrator profile. You'll sign in using your school's email with the password you choose below.</p>
+                        <!-- Step 2: Admin Profile -->
+                        <fieldset class="sc-wizard-fieldset" data-step="2">
+                            <div class="sc-form-intro">
+                                <span class="sc-pill-tag">Step 2 of 3</span>
+                                <h2 class="sc-form-title">Administrator Profile</h2>
+                                <p class="sc-form-subtitle">Set up the primary administrative authority and login profile.</p>
                             </div>
-                            <div class="step-body">
-                                <div class="form-group">
-                                    <label>
-                                        Principal's Name
-                                        @error('principal_name') <span class="error-text">{{ $message }}</span> @enderror
-                                    </label>
-                                    <input type="text" name="principal_name"
-                                        class="form-control @error('principal_name') input-error @enderror"
-                                        value="{{ old('principal_name') }}"
-                                        placeholder="e.g. Mr. John Smith"
-                                        required>
+
+                            <div class="sc-field-group">
+                                <label for="principal_name" class="sc-field-label">Principal / Head of School's Name</label>
+                                <div class="sc-input-wrapper @error('principal_name') has-error @enderror">
+                                    <i class="fas fa-user-tie sc-input-icon"></i>
+                                    <input 
+                                        id="principal_name" 
+                                        type="text" 
+                                        name="principal_name" 
+                                        class="sc-form-control @error('principal_name') is-invalid @enderror" 
+                                        value="{{ old('principal_name') }}" 
+                                        placeholder="e.g. Dr. John Adebayo" 
+                                        required
+                                    >
                                 </div>
-                                <div class="form-group">
-                                    <label>
-                                        Your Full Name
-                                        @error('admin_name') <span class="error-text">{{ $message }}</span> @enderror
-                                    </label>
-                                    <input type="text" name="admin_name"
-                                        class="form-control @error('admin_name') input-error @enderror"
-                                        value="{{ old('admin_name') }}"
-                                        placeholder="e.g. Jane Smith"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <label>
-                                        Login Email
-                                        @error('school_email') <span class="error-text">{{ $message }}</span> @enderror
-                                    </label>
-                                    <input type="email" name="school_email_readonly"
-                                        class="form-control"
-                                        value="{{ old('school_email') }}"
-                                        placeholder="info@school.com"
-                                        readonly>
-                                    <small class="text-muted">You'll sign in with the school email entered in Step 1.</small>
-                                </div>
+                                @error('principal_name')
+                                    <span class="sc-error-message"><i class="fas fa-info-circle"></i> {{ $message }}</span>
+                                @enderror
                             </div>
-                            <div class="step-footer">
-                                <button type="button" class="btn-previous btn-previous-step"><i class="fas fa-arrow-left mr-1"></i> Go Back</button>
-                                <button type="button" class="btn-next btn-next-step">Next Step <i class="fas fa-arrow-right ml-1"></i></button>
+
+                            <div class="sc-field-group">
+                                <label for="admin_name" class="sc-field-label">Administrator Full Name</label>
+                                <div class="sc-input-wrapper @error('admin_name') has-error @enderror">
+                                    <i class="fas fa-user-shield sc-input-icon"></i>
+                                    <input 
+                                        id="admin_name" 
+                                        type="text" 
+                                        name="admin_name" 
+                                        class="sc-form-control @error('admin_name') is-invalid @enderror" 
+                                        value="{{ old('admin_name') }}" 
+                                        placeholder="e.g. Jane Smith" 
+                                        required
+                                    >
+                                </div>
+                                @error('admin_name')
+                                    <span class="sc-error-message"><i class="fas fa-info-circle"></i> {{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="sc-field-group">
+                                <label for="school_email_readonly" class="sc-field-label">Login Email Address</label>
+                                <div class="sc-input-wrapper">
+                                    <i class="fas fa-envelope-open-text sc-input-icon"></i>
+                                    <input 
+                                        id="school_email_readonly" 
+                                        type="email" 
+                                        name="school_email_readonly" 
+                                        class="sc-form-control sc-readonly" 
+                                        value="{{ old('school_email') }}" 
+                                        placeholder="info@school.edu.ng" 
+                                        readonly
+                                    >
+                                </div>
+                                <span class="sc-field-hint">
+                                    <i class="fas fa-lock"></i> Synchronized from Step 1. This will be your primary portal login ID.
+                                </span>
+                            </div>
+
+                            <div class="sc-wizard-actions">
+                                <button type="button" class="sc-btn-back btn-previous-step">
+                                    <i class="fas fa-arrow-left"></i>
+                                    <span>Go Back</span>
+                                </button>
+                                <button type="button" class="sc-btn-submit sc-btn-next btn-next-step">
+                                    <span>Next: Account Security</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
                             </div>
                         </fieldset>
 
-                        {{-- Step 3: Security & Submit --}}
-                        <fieldset>
-                            <div class="step-header">
-                                <h2>Account Security</h2>
-                                <p>Choose a strong password for your admin account</p>
+                        <!-- Step 3: Security & Finish -->
+                        <fieldset class="sc-wizard-fieldset" data-step="3">
+                            <div class="sc-form-intro">
+                                <span class="sc-pill-tag">Step 3 of 3</span>
+                                <h2 class="sc-form-title">Account Security</h2>
+                                <p class="sc-form-subtitle">Choose a secure password for your administrator account.</p>
                             </div>
-                            <div class="step-body">
-                                <div class="form-group">
-                                    <label>
-                                        Password
-                                        @error('admin_password') <span class="error-text">{{ $message }}</span> @enderror
-                                    </label>
-                                    <div class="password-wrapper">
-                                        <input type="password" name="admin_password"
-                                            class="form-control @error('admin_password') input-error @enderror" required>
-                                        <button type="button" class="password-toggle" tabindex="-1" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
-                                    </div>
-                                    <small class="text-muted">Minimum 8 characters.</small>
+
+                            <div class="sc-field-group">
+                                <label for="admin_password" class="sc-field-label">Administrator Password</label>
+                                <div class="sc-input-wrapper password-wrapper @error('admin_password') has-error @enderror">
+                                    <i class="fas fa-lock sc-input-icon"></i>
+                                    <input 
+                                        id="admin_password" 
+                                        type="password" 
+                                        name="admin_password" 
+                                        class="sc-form-control @error('admin_password') is-invalid @enderror" 
+                                        placeholder="••••••••" 
+                                        required 
+                                        autocomplete="new-password"
+                                    >
+                                    <button type="button" class="password-toggle sc-pwd-toggle" tabindex="-1" aria-label="Toggle password visibility">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
-                                <div class="form-group">
-                                    <label>
-                                        Confirm Password
-                                        @error('admin_password_confirmation') <span class="error-text">{{ $message }}</span> @enderror
-                                    </label>
-                                    <div class="password-wrapper">
-                                        <input type="password" name="admin_password_confirmation"
-                                            class="form-control @error('admin_password_confirmation') input-error @enderror" required>
-                                        <button type="button" class="password-toggle" tabindex="-1" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
-                                    </div>
+                                @error('admin_password')
+                                    <span class="sc-error-message"><i class="fas fa-info-circle"></i> {{ $message }}</span>
+                                @enderror
+                                <span class="sc-field-hint">Must contain at least 8 characters.</span>
                             </div>
-                            <div class="step-footer">
-                                <button type="button" class="btn-previous btn-previous-step"><i class="fas fa-arrow-left mr-1"></i> Go Back</button>
-                                <button type="submit" class="btn-confirm"><i class="fas fa-check mr-1"></i> Confirm</button>
+
+                            <div class="sc-field-group">
+                                <label for="admin_password_confirmation" class="sc-field-label">Confirm Password</label>
+                                <div class="sc-input-wrapper password-wrapper @error('admin_password_confirmation') has-error @enderror">
+                                    <i class="fas fa-lock sc-input-icon"></i>
+                                    <input 
+                                        id="admin_password_confirmation" 
+                                        type="password" 
+                                        name="admin_password_confirmation" 
+                                        class="sc-form-control @error('admin_password_confirmation') is-invalid @enderror" 
+                                        placeholder="••••••••" 
+                                        required 
+                                        autocomplete="new-password"
+                                    >
+                                    <button type="button" class="password-toggle sc-pwd-toggle" tabindex="-1" aria-label="Toggle password visibility">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                @error('admin_password_confirmation')
+                                    <span class="sc-error-message"><i class="fas fa-info-circle"></i> {{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="sc-wizard-actions">
+                                <button type="button" class="sc-btn-back btn-previous-step">
+                                    <i class="fas fa-arrow-left"></i>
+                                    <span>Go Back</span>
+                                </button>
+                                <button type="submit" class="sc-btn-submit sc-btn-confirm">
+                                    <i class="fas fa-check"></i>
+                                    <span>Complete Registration</span>
+                                </button>
                             </div>
                         </fieldset>
-
                     </form>
-
                 @endif
-
             </div>
 
-        </div>
+            <div class="sc-form-footer">
+                <span class="sc-footer-copy">&copy; {{ date('Y') }} SchoolCloud SMS. All rights reserved.</span>
+                <span class="sc-footer-support">Need assistance? Contact support@schoolcloud.ng</span>
+            </div>
+        </main>
     </div>
+</div>
 @endsection
 
 @push('scripts')
-    <script>
-        jQuery(document).ready(function($) {
+<script>
+    jQuery(document).ready(function($) {
+        var $form = $('.registration-form');
+        var $fieldsets = $form.find('fieldset');
+        var $steps = $('#step-indicator .sc-step-item');
 
-            var $form = $('.registration-form');
-            var $fieldsets = $form.find('fieldset');
-            var $steps = $('#step-indicator .sidebar-step');
+        $fieldsets.hide().first().show();
 
-            $fieldsets.hide().first().show();
-
-            $form.find('input, textarea').on('focus', function() {
-                $(this).removeClass('input-error');
-            });
-
-            function goToStep(index) {
-                $steps.each(function(i) {
-                    var stepNum = i + 1;
-                    $(this).removeClass('active done');
-                    if (stepNum === index) {
-                        $(this).addClass('active');
-                    } else if (stepNum < index) {
-                        $(this).addClass('done');
-                    }
-                });
-            }
-
-            function validateFieldset($fieldset) {
-                var valid = true;
-                $fieldset.find('.form-control[required]').each(function() {
-                    if ($(this).val().trim() === '') {
-                        $(this).addClass('input-error');
-                        valid = false;
-                    } else {
-                        $(this).removeClass('input-error');
-                    }
-                });
-                return valid;
-            }
-
-            $('.btn-next-step').on('click', function() {
-                var $current = $(this).closest('fieldset');
-                if (!validateFieldset($current)) return;
-
-                if ($current.is(':first-child')) {
-                    $('[name="school_email_readonly"]').val($('[name="school_email"]').val());
-                }
-
-                var $next = $current.next('fieldset');
-                if ($next.length) {
-                    $current.fadeOut(300, function() {
-                        $next.fadeIn(300);
-                        goToStep($next.index() + 1);
-                    });
-                }
-            });
-
-            $('.btn-previous-step').on('click', function() {
-                var $current = $(this).closest('fieldset');
-                var $prev = $current.prev('fieldset');
-                if ($prev.length) {
-                    $current.fadeOut(300, function() {
-                        $prev.fadeIn(300);
-                        goToStep($prev.index() + 1);
-                    });
-                }
-            });
-
-            $form.on('submit', function(e) {
-                var allValid = true;
-                $fieldsets.find('.form-control[required]').each(function() {
-                    if ($(this).val().trim() === '') {
-                        $(this).addClass('input-error');
-                        allValid = false;
-                    } else {
-                        $(this).removeClass('input-error');
-                    }
-                });
-
-                if (!allValid) {
-                    e.preventDefault();
-                    var $firstError = $fieldsets.find('.input-error').first().closest('fieldset');
-                    var targetIndex = $firstError.length ? $fieldsets.index($firstError) + 1 : 1;
-
-                    $fieldsets.hide();
-                    $firstError.length ? $firstError.show() : $fieldsets.first().show();
-                    goToStep(targetIndex);
-
-                    $('html, body').animate({
-                        scrollTop: $('.step-content').offset().top - 20
-                    }, 300);
-
-                    $fieldsets.find('.input-error').first().focus();
-                }
-            });
-
+        $form.find('input, textarea').on('focus input', function() {
+            $(this).removeClass('is-invalid');
+            $(this).closest('.sc-input-wrapper').removeClass('has-error');
         });
-    </script>
+
+        function goToStep(index) {
+            $steps.each(function(i) {
+                var stepNum = i + 1;
+                $(this).removeClass('active done');
+                if (stepNum === index) {
+                    $(this).addClass('active');
+                } else if (stepNum < index) {
+                    $(this).addClass('done');
+                }
+            });
+        }
+
+        function validateFieldset($fieldset) {
+            var valid = true;
+            $fieldset.find('.sc-form-control[required]').each(function() {
+                if ($(this).val().trim() === '') {
+                    $(this).addClass('is-invalid');
+                    $(this).closest('.sc-input-wrapper').addClass('has-error');
+                    valid = false;
+                } else {
+                    $(this).removeClass('is-invalid');
+                    $(this).closest('.sc-input-wrapper').removeClass('has-error');
+                }
+            });
+            return valid;
+        }
+
+        $('.btn-next-step').on('click', function() {
+            var $current = $(this).closest('fieldset');
+            if (!validateFieldset($current)) return;
+
+            if ($current.is(':first-child')) {
+                $('[name="school_email_readonly"]').val($('[name="school_email"]').val());
+            }
+
+            var $next = $current.next('fieldset');
+            if ($next.length) {
+                $current.fadeOut(200, function() {
+                    $next.fadeIn(200);
+                    goToStep($next.index() + 1);
+                });
+            }
+        });
+
+        $('.btn-previous-step').on('click', function() {
+            var $current = $(this).closest('fieldset');
+            var $prev = $current.prev('fieldset');
+            if ($prev.length) {
+                $current.fadeOut(200, function() {
+                    $prev.fadeIn(200);
+                    goToStep($prev.index() + 1);
+                });
+            }
+        });
+
+        $form.on('submit', function(e) {
+            var allValid = true;
+            $fieldsets.find('.sc-form-control[required]').each(function() {
+                if ($(this).val().trim() === '') {
+                    $(this).addClass('is-invalid');
+                    $(this).closest('.sc-input-wrapper').addClass('has-error');
+                    allValid = false;
+                } else {
+                    $(this).removeClass('is-invalid');
+                    $(this).closest('.sc-input-wrapper').removeClass('has-error');
+                }
+            });
+
+            if (!allValid) {
+                e.preventDefault();
+                var $firstError = $fieldsets.find('.is-invalid').first().closest('fieldset');
+                var targetIndex = $firstError.length ? $fieldsets.index($firstError) + 1 : 1;
+
+                $fieldsets.hide();
+                $firstError.length ? $firstError.show() : $fieldsets.first().show();
+                goToStep(targetIndex);
+
+                $('html, body').animate({
+                    scrollTop: $('.sc-wizard-content-pane').offset().top - 20
+                }, 200);
+
+                $fieldsets.find('.is-invalid').first().focus();
+            }
+        });
+    });
+</script>
 @endpush

@@ -39,8 +39,16 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('auth.login');
-});
+    try {
+        $plans = \App\Models\SubscriptionPlan::where('is_active', true)
+            ->orderBy('price', 'asc')
+            ->get();
+    } catch (\Throwable $e) {
+        $plans = collect();
+    }
+
+    return view('landing', compact('plans'));
+})->name('landing');
 Route::get('/register/school', [SchoolRegistrationController::class, 'showForm'])->name('school.register');
 Route::post('/register/school', [SchoolRegistrationController::class, 'store'])->name('school.register.store');
 
